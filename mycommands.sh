@@ -19,3 +19,5 @@ git status # Check the status of the git repository
 git add Transformed/2023_year_finance.csv # Stage the new file for commit
 ls Transformed/ # List the contents of the 'Transformed' directory
 git commit -m "Add transformed data 2023 _year_finance data" # Commit the changes with a message
+git add . # Stage all changes in the current directory for commit 
+git status # Check the status of the git repository
