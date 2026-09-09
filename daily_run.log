@@ -1,0 +1,3 @@
+crontab: usage error: no arguments permitted after this option
+usage: crontab [-u user] file
+       crontab [-u user] { -e | -l | -r }

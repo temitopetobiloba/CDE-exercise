@@ -14,13 +14,18 @@ awk -F, 'NR==1 { gsub(/Variable_code/, "variable_code") } { print $0 }' annual-e
 git 
 
 mv ~/Downloads/annual-enterprise-survey-2023-financial-year-provisional.csv raw/ # Move the CSV file to the 'raw' directory
-git status # Check the status of the git repository
-git add raw/annual-enterprise-survey-2023-financial-year-provisional.csv # Stage the CSV file for commit
-git status #To confirm status of tracked file
-git commit -m "Add annual enterprise survey 2023 financial year provisional data" # Commit the changes with a message
-nano raw/annual-enterprise-survey-2023-financial-year-provisional.csv # Open the CSV file in nano editor for review
-pwd # Print the current working directory
 
+git status # Check the status of the git repository
+
+git add raw/annual-enterprise-survey-2023-financial-year-provisional.csv # Stage the CSV file for commit
+
+git status #To confirm status of tracked file
+
+git commit -m "Add annual enterprise survey 2023 financial year provisional data" # Commit the changes with a message
+
+nano raw/annual-enterprise-survey-2023-financial-year-provisional.csv # Open the CSV file in nano editor for review
+
+pwd # Print the current working directory
 mkdir Transformed # Create a folder named 'Transformed'
 # used RBQL console to create new table called 2023_year_finance.csv selcting year, Value, Units, variable_code
 mv 2023_year_finance.csv Transformed/ # Move the new file 2023_year_finance.csv to the 'Transformed' folder
@@ -41,3 +46,19 @@ git add . # Stage all changes in the current directory for commit
 git status # Check the status of the git repository
 git commit -m "Add Gold data 2023_year_finance data" # Commit the changes with a message
 git push # Push the committed changes to the remote repository
+pwd # Print the current working directory to verify the location
+
+crontab -e # Open the crontab editor to schedule tasks
+# Add the following line to schedule the script to run at 2 AM every day
+
+0 0 * * * export Transformed/2023_year_finance.csv ="/Users/Tootees/Desktop/CDE-exercise/Gold/Transformed/2023_year_finance.csv" && bash /Users/Tootees/Desktop/CDE-exercise/clean_data.sh >> /Users/Tootees/Desktop/CDE-exercise/daily_run.log 2>&1
+
+git status # Check the status of the git repository
+
+git add . # Stage all changes in the current directory for commit
+
+git commit -m "Add cron job for daily data processing" # Commit the changes with a message
+
+crontab -l # List the current cron jobs to verify the new job is added
+
+echo "0 0 * * * export 2023_year_finance.csv=\"/Users/tootees/Desktop/CDE-exercise/Gold/Transformed/2023_year_finance.csv\" && bash /Users/tootees/Desktop/CDE-exercise/clean_data.sh >> /Users/tootees/Desktop/CDE-exercise/daily_run.log 2>&1" > my_cron_job.txt
