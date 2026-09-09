@@ -59,6 +59,21 @@ git add . # Stage all changes in the current directory for commit
 
 git commit -m "Add cron job for daily data processing" # Commit the changes with a message
 
-crontab -l # List the current cron jobs to verify the new job is added
+crontab -e 0 0 * * * /bin/bash /Users/tootees/Desktop/CDE-exercise/mycommands.sh >> /Users/tootees/Desktop/CDE-exercise/daily_run.log 2>&1c #This line schedules the script to run at midnight every day and logs output to daily_run.log 
 
-echo "0 0 * * * export 2023_year_finance.csv=\"/Users/tootees/Desktop/CDE-exercise/Gold/Transformed/2023_year_finance.csv\" && bash /Users/tootees/Desktop/CDE-exercise/clean_data.sh >> /Users/tootees/Desktop/CDE-exercise/daily_run.log 2>&1" > my_cron_job.txt
+0 0 * * * cd /Users/tootees/Desktop/CDE-exercise && /bin/bash mycommands.sh >> daily_run.log 2>&1  #This line schedules the script to run at midnight every day and logs output to daily_run.log
+
+crontab -l # List the current cron jobs to verify the new job has been added
+
+git add . # Stage all changes in the current directory for commit
+
+git remote -v # Verify the remote repository URL due to error: 
+fatal: No configured push destination.
+
+git remote set-url origin https://github.com/temitopetobiloba/CDE-exercise.git
+
+git push origin main # Push the committed changes to the remote repository-returned error due to conflict
+
+git pull --rebase origin main # Pull the latest changes from the remote repository and rebase the local changes
+
+git status # Check the status of the git repository
